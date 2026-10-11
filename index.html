@@ -1,66 +1,135 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Library Database</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="container">
-      <header class="topbar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browse the Room Library catalog.">
+  <title>Room Library</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="mascot" aria-hidden="true">🐴</div>
+      <div>
+        <h1>Room Library</h1>
+        <p class="tagline">Discover a book. Start an adventure.</p>
+      </div>
+    </div>
+    <button id="login-toggle" class="button secondary">Librarian Login</button>
+  </header>
+
+  <main class="container">
+    <section class="welcome panel">
+      <p class="eyebrow">WELCOME TO THE LIBRARY</p>
+      <h2>Every book opens a new adventure.</h2>
+      <p>Browse the catalog below. To check out or return a book, ask an authorized librarian.</p>
+    </section>
+
+    <section id="login-panel" class="panel hidden">
+      <h2>Librarian Login</h2>
+      <p>Only authorized librarians can manage checkouts.</p>
+      <form id="login-form">
+        <label for="email">Email address</label>
+        <input id="email" type="email" autocomplete="username" required>
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <button class="button" type="submit">Sign in</button>
+      </form>
+      <p id="login-message" class="message" role="status"></p>
+    </section>
+
+    <section id="librarian-panel" class="panel hidden">
+      <div class="section-heading">
         <div>
-          <p class="eyebrow">Personal library</p>
-          <h1>Library Database</h1>
+          <p class="eyebrow">LIBRARIAN DESK</p>
+          <h2>Library management</h2>
         </div>
-        <button id="ownerToggle" class="owner-button">Owner Mode</button>
-      </header>
+        <button id="logout-button" class="button secondary">Sign out</button>
+      </div>
+      <p id="librarian-message" class="message" role="status"></p>
 
-      <main>
-        <section class="panel">
-          <div class="section-header">
-            <h2>My Books</h2>
-          </div>
-          <div id="bookList" class="book-grid"></div>
-        </section>
-
-        <section class="panel">
-          <div class="section-header">
-            <h2>Available Books</h2>
-          </div>
-          <div id="availableList" class="book-grid"></div>
-        </section>
-
-        <section id="ownerPanel" class="panel hidden">
-          <div class="section-header">
-            <h2>Owner Controls</h2>
-          </div>
-
-          <form id="bookForm" class="book-form">
-            <label>
-              Title
-              <input type="text" id="title" placeholder="Book title" required />
-            </label>
-
-            <label>
-              Author
-              <input type="text" id="author" placeholder="Author name" required />
-            </label>
-
-            <label>
-              Status
-              <select id="status">
-                <option value="available">Available</option>
-                <option value="checked-out">Checked Out</option>
-              </select>
-            </label>
-
-            <button type="submit" class="primary-button">Add Book</button>
+      <div class="management-grid">
+        <section class="subpanel">
+          <h3>Check out a book</h3>
+          <form id="checkout-form">
+            <label for="checkout-book">Book</label>
+            <select id="checkout-book" required></select>
+            <label for="borrower">Borrower's name</label>
+            <input id="borrower" maxlength="100" required>
+            <button class="button" type="submit">Check out</button>
           </form>
         </section>
-      </main>
-    </div>
 
-    <script src="script.js"></script>
-  </body>
+        <section class="subpanel">
+          <h3>Import books from CSV</h3>
+          <p class="small">Choose a CSV file with a title column and, optionally, an author column. Review the file before importing.</p>
+          <label for="csv-file">CSV file</label>
+          <input id="csv-file" type="file" accept=".csv,text/csv">
+          <button id="import-button" class="button" type="button">Import books</button>
+          <p id="import-message" class="message" role="status"></p>
+        </section>
+      </div>
+
+      <section class="subpanel">
+        <div class="section-heading">
+          <h3>Active checkouts</h3>
+          <button id="refresh-button" class="button secondary">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Book</th>
+                <th>Borrower</th>
+                <th>Checked out</th>
+                <th>Due date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="checkout-list">
+              <tr><td colspan="6">Sign in as a librarian to view checkouts.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <button id="print-overdue" class="button" type="button">Print overdue list</button>
+      </section>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading catalog-heading">
+        <div>
+          <p class="eyebrow">THE COLLECTION</p>
+          <h2>Browse the catalog</h2>
+        </div>
+        <span id="book-count" class="count">Loading books…</span>
+      </div>
+      <label for="search">Search by title or author</label>
+      <input id="search" type="search" placeholder="Try a book title…">
+      <div id="catalog" class="book-grid" aria-live="polite">
+        <p>Loading the catalog…</p>
+      </div>
+      <p id="catalog-message" class="message" role="status"></p>
+    </section>
+
+    <section class="panel rules">
+      <h2>Library rules</h2>
+      <ul>
+        <li>Please ask an authorized librarian to check out or return a book.</li>
+        <li>Books are due seven days after checkout.</li>
+        <li><strong>Dragons Love Tacos</strong> is a library favorite and is never lent out.</li>
+        <li><strong>The Library Lion</strong> is not available to lend until it is purchased.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Room Library · Read, learn, and never give up.</p>
+  </footer>
+</body>
 </html>
+
