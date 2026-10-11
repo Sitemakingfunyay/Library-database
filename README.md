@@ -24,7 +24,7 @@ This section shows which books are currently available to borrow.
 To enter Owner Mode and manage check-ins and check-outs, use the access code:
 
 ```
-6354
+we cant show it
 ```
 
 Only the owner can use this mode to update the book list and record changes.
