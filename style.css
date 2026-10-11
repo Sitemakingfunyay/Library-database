@@ -1,0 +1,270 @@
+
+:root {
+  --red: #bd3038;
+  --red-dark: #92212a;
+  --blue: #234f87;
+  --blue-light: #edf4ff;
+  --cream: #fffaf1;
+  --paper: #ffffff;
+  --ink: #252b36;
+  --muted: #626c7b;
+  --border: #e2e6ed;
+  --green: #237348;
+  --shadow: 0 5px 20px rgba(35, 55, 85, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.55;
+}
+
+.site-header {
+  background: var(--blue);
+  color: white;
+  padding: 20px max(20px, calc((100% - 1120px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mascot {
+  font-size: 2.6rem;
+  background: white;
+  border-radius: 18px;
+  padding: 6px 12px;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+h1 { margin-bottom: 0; font-size: 1.7rem; }
+h2 { color: var(--blue); line-height: 1.25; }
+h3 { color: var(--blue); margin-bottom: 12px; }
+.tagline { margin: 3px 0 0; color: #e2ecff; }
+
+.container {
+  max-width: 1120px;
+  padding: 24px 18px 44px;
+  margin: auto;
+}
+
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow);
+}
+
+.welcome {
+  background: var(--blue-light);
+  border-top: 5px solid var(--red);
+  padding: 30px;
+}
+
+.welcome h2 { font-size: clamp(1.6rem, 4vw, 2.3rem); margin-bottom: 10px; }
+.welcome p:last-child { margin-bottom: 0; }
+
+.eyebrow {
+  color: var(--red);
+  font-weight: 800;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.section-heading h2,
+.section-heading h3 { margin-bottom: 0; }
+
+.button {
+  background: var(--red);
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.button:hover { background: var(--red-dark); }
+.button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid #f4b844;
+  outline-offset: 2px;
+}
+
+.button.secondary {
+  background: white;
+  color: var(--blue);
+  border: 1px solid var(--border);
+}
+
+.button.secondary:hover { background: var(--blue-light); }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+label {
+  display: block;
+  font-weight: 700;
+  margin: 12px 0 6px;
+}
+
+input, select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  border: 1px solid #cbd2de;
+  border-radius: 9px;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+  margin-bottom: 12px;
+}
+
+#login-form { max-width: 460px; }
+#login-form .button, #checkout-form .button { margin-top: 6px; }
+
+.hidden { display: none !important; }
+
+.message { color: var(--muted); margin: 10px 0 0; }
+.message.error { color: #a21d29; }
+.message.success { color: var(--green); }
+.small { font-size: 0.9rem; color: var(--muted); }
+
+.management-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 20px 0;
+}
+
+.subpanel {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  margin-top: 16px;
+  min-width: 0;
+}
+
+.count {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.book-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  background: #fff;
+  border-bottom: 4px solid var(--blue);
+}
+
+.book-card h3 { margin-bottom: 8px; overflow-wrap: anywhere; }
+.book-card p { margin-bottom: 8px; }
+.book-icon { font-size: 2rem; margin-bottom: 8px; }
+.status {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 4px 9px;
+  background: var(--blue-light);
+  color: var(--blue);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.status.unavailable { background: #fff0f0; color: #a21d29; }
+
+.table-wrap { overflow-x: auto; margin: 14px 0; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 11px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+th { background: var(--blue-light); color: var(--blue); }
+td .button { padding: 7px 10px; font-size: 0.85rem; }
+.overdue-text { color: #a21d29; font-weight: 800; }
+
+.rules li { margin-bottom: 8px; }
+footer { text-align: center; padding: 22px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .site-header { flex-wrap: wrap; padding: 16px; }
+  .container { padding: 16px 12px 30px; }
+  .panel { padding: 18px; }
+  .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .management-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 460px) {
+  .book-grid { grid-template-columns: 1fr; }
+  .section-heading { align-items: flex-start; flex-wrap: wrap; }
+  .mascot { font-size: 2rem; }
+  h1 { font-size: 1.4rem; }
+}
+
+@media print {
+  body { background: white; }
+  body * { visibility: hidden; }
+  #librarian-panel, #librarian-panel * { visibility: visible; }
+  #librarian-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: 0;
+    box-shadow: none;
+  }
+  #librarian-panel > :not(.subpanel),
+  #librarian-panel .management-grid,
+  #librarian-panel .subpanel:first-of-type,
+  #librarian-panel #refresh-button,
+  #librarian-panel #logout-button,
+  #librarian-panel td .button,
+  #librarian-panel #print-overdue {
+    display: none !important;
+  }
+  #librarian-panel .subpanel:last-of-type { display: block !important; }
+  #librarian-panel .subpanel:last-of-type > * { display: none; }
+  #librarian-panel .subpanel:last-of-type .table-wrap { display: block; }
+  #librarian-panel .subpanel:last-of-type .table-wrap th,
+  #librarian-panel .subpanel:last-of-type .table-wrap td { display: none; }
+  #librarian-panel .subpanel:last-of-type .table-wrap th:nth-child(-n+4),
+  #librarian-panel .subpanel:last-of-type .table-wrap td:nth-child(-n+4) {
+    display: table-cell;
+  }
+}
