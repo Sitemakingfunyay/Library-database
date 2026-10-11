@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Database</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Personal library</p>
+          <h1>Library Database</h1>
+        </div>
+        <button id="ownerToggle" class="owner-button">Owner Mode</button>
+      </header>
+
+      <main>
+        <section class="panel">
+          <div class="section-header">
+            <h2>My Books</h2>
+          </div>
+          <div id="bookList" class="book-grid"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-header">
+            <h2>Available Books</h2>
+          </div>
+          <div id="availableList" class="book-grid"></div>
+        </section>
+
+        <section id="ownerPanel" class="panel hidden">
+          <div class="section-header">
+            <h2>Owner Controls</h2>
+          </div>
+
+          <form id="bookForm" class="book-form">
+            <label>
+              Title
+              <input type="text" id="title" placeholder="Book title" required />
+            </label>
+
+            <label>
+              Author
+              <input type="text" id="author" placeholder="Author name" required />
+            </label>
+
+            <label>
+              Status
+              <select id="status">
+                <option value="available">Available</option>
+                <option value="checked-out">Checked Out</option>
+              </select>
+            </label>
+
+            <button type="submit" class="primary-button">Add Book</button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
